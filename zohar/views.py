@@ -48,6 +48,7 @@ def get_book(docs,title):
     hebrew_pattern = re.compile(ALEPHBET, re.UNICODE)
     footnote_pattern = re.compile(ur'\[\d{1,4}\]', re.UNICODE)
     title = unicodedata.normalize('NFC', title)
+    
     for doc in docs:
         with io.open(doc, 'r', encoding='utf-8-sig') as doc:
             
@@ -72,7 +73,7 @@ def get_book(docs,title):
                             if l.startswith('['):
                                 l = footnote_pattern.sub('<a id="cite_note-\g<0>" href="#cite_ref-\g<0>">&uarr;</a> \g<0> ',l)
                             else:
-                                l = footnote_pattern.sub('<sup id="cite_ref-\g<0>"><a href="#cite_note-\g<0>">\g<0></a></sup>',l)
+                                l = footnote_pattern.sub('<sup id="cite_ref-\g<0>"><a href="#cite_note-\g<0>">\g<0></a></sup>',l)    
                         
                         book.append(l)
     
@@ -147,7 +148,7 @@ def list_of_resources(main_lib=True):
     
     return res
 
-MASTER_MAP = [('בְּרֵאשִׁית',	'Берешит', ['Зоhар Брейшит I','Зоhар Брейшит II'],['Зоhар Брейшит I','Зоhар Брейшит II','Зоhар Брейшит III']),
+MASTER_MAP = [('בְּרֵאשִׁית',	'Берешит', ['Зоhар Брейшит I','Зоhар Брейшит II'],['Зоhар Брейшит']),
               ('נֹחַ	', 'Ноах', ['Зоhар Ноах'],['Зоhар Ноах']),
               ('לֶךְ-לְךָ	', 'Лех Леха', ['Зоhар Лех Леха'],['Зоhар Лех Леха']),
               ('וַיֵּרָא	', 'Ва-Иера', ['Зоhар Ва-йера'],['Зоhар Ва-йера']),
@@ -162,7 +163,7 @@ MASTER_MAP = [('בְּרֵאשִׁית',	'Берешит', ['Зоhар Брей�
               ('שְׁמוֹת	', 'Шмот', [],['Зоhар Шемот']),
               ('וָאֵרָא	', 'Ва-Эра', [],['Зоhар Ва-Эра']),
               ('בֹּא	', 'Бо', [],['Зоhар Бо']),
-              ('בְּשַׁלַּח	', 'Бе-Шаллах II', [],['Зоhар Бешалах']),
+              ('בְּשַׁלַּח	', 'Бе-Шаллах', [],['Зоhар Бешалах II']),
               ('יִתְרוֹ	', 'Итро', [],['Зоhар Итро I','Зоhар Итро II','Зоhар Итро III']),
               ('מִשְׁפָּטִים	', 'Мишпатим', [],['Зоhар Мишпатим I','Зоhар Мишпатим II']),
               ('תְּרוּמָה	', 'Трума', [],['Зоhар Трума I','Зоhар Трума II']),

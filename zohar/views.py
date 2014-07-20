@@ -39,6 +39,23 @@ def index(request):
         docs = list_of_resources(False)
         debug, book = get_book(docs,title_lib2)
     
+    """
+    if False:
+        docs = list_of_resources(False)
+        ex = re.compile(ur'(?<=")\d{1,4}', re.UNICODE)
+        
+        for doc in docs:
+            with io.open(doc, 'r+', encoding='utf-8-sig') as doc:
+                    text = doc.read()
+                    found = ex.search(text)
+                    if found:
+                        text = ex.sub('['+'\g<0>'+']',text)
+                    doc.seek(0)
+                    doc.write(text)
+                    doc.truncate()
+                    doc.close()
+    """
+    
     context = {'found_verses':found_verses, 'count':count, 'value':value, 'master_map':MASTER_MAP, 'book':book, 'debug':debug, 'debug2':debug2}
     return render(request, 'zohar/main.html', context)
 

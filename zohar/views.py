@@ -31,7 +31,7 @@ def index(request):
         title_lib1 = title_lib1[1:]
     
     if value != '':
-        debug, found_verses = search(value, main_lib, filter)
+        debug = search(value, main_lib, filter)
         count = len(found_verses)
     elif title_lib1 != '':
         docs = list_of_resources(True)
@@ -59,7 +59,7 @@ def index(request):
     
     length = get_len_of_dict_content(RESULTS)
 
-    context = {'found_verses':RESULTS, 'count':count, 'value':value, 'master_map':MASTER_MAP, 'book':book, 'debug':debug, 'debug2':debug2}
+    context = {'found_verses':RESULTS, 'count':length, 'value':value, 'master_map':MASTER_MAP, 'book':book, 'debug':debug, 'debug2':debug2}
     return render(request, 'zohar/main.html', context)
 
 def get_book(docs,title):
@@ -100,11 +100,10 @@ def get_book(docs,title):
     return debug, book
 
 def search(words, main_lib, filter):
-    verse_list = []
     key_words = []
     debug = []
 
-    for book in MY_LIST:
+    for book in BOOKS:
         RESULTS[book]=[]
     
     docs = list_of_resources(main_lib)
@@ -143,14 +142,14 @@ def search(words, main_lib, filter):
                     for word in key_words:
                         pattern = set_pattern(word, filter)
                         line = pattern.sub('<span class="highlightme">'+'\g<0>'+'</span>',line)
-                    verse_list.append('<a href="/zohar/?'+which_lib+'='+title+'"><b>'+title+'</b></a></br>'+line)
+
                     try:
                         RESULTS[title.rstrip().encode("utf-8")].append('<a href="/zohar/?'+which_lib+'='+title+'"><b>'+title+'</b></a></br>'+line)
                     except:
                         RESULTS[title.rstrip().encode("utf-8")]=[]
                         RESULTS[title.rstrip().encode("utf-8")].append('<a href="/zohar/?'+which_lib+'='+title+'"><b>'+title+'</b></a></br>'+line)
 
-    return debug, verse_list
+    return debug
 
 def set_pattern(key, filter):
     if filter == 'filter_1' or filter == 'filter_2':
@@ -240,9 +239,7 @@ MASTER_MAP = [('בְּרֵאשִׁית',	'Берешит', ['Зоhар Брей�
 
 RESULTS = collections.OrderedDict()
 
-aa = ['Зоhар Ва-йешев','Зоhар Вейшев','Зоhар Ва-йешев']
-
-MY_LIST = ['Сефер Ецира',
+BOOKS = ['Сефер Ецира',
            'Бахир',
            'Зоhар hакдама',
            'Зоhар Акдамат I',

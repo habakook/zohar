@@ -72,7 +72,7 @@ def get_book(docs,title):
     
     for doc in docs:
         with io.open(doc, 'r', encoding='utf-8-sig') as doc:
-            
+            line_number = 1
             for line in doc:
                 if title != line.strip():
                     break
@@ -82,6 +82,7 @@ def get_book(docs,title):
                     book.append(modified_title)
                     
                     for l in doc:
+                        line_number+=1
                         
                         #find all hebrew and bold them
                         found = hebrew_pattern.search(l)
@@ -96,7 +97,7 @@ def get_book(docs,title):
                             else:
                                 l = footnote_pattern.sub('<sup id="cite_ref-\g<0>"><a href="#cite_note-\g<0>">\g<0></a></sup>',l)    
                         
-                        book.append(l)
+                        book.append('<span id="'+str(line_number)+'">'+l+'</span>')
     
     return debug, book
 
@@ -120,9 +121,10 @@ def search(words, main_lib, filter):
     
     for doc in docs:
         with io.open(doc, 'r', encoding='utf-8-sig') as doc:
-            
+            line_number = 0
             get_title = True
             for line in doc:
+                line_number+=1
                 if get_title:
                     title = line
                     get_title = False
@@ -145,10 +147,10 @@ def search(words, main_lib, filter):
                         line = pattern.sub('<span class="highlightme">'+'\g<0>'+'</span>',line)
 
                     try:
-                        RESULTS[title.rstrip().encode("utf-8")].append('<a href="/zohar/?'+which_lib+'='+title+'"><b>'+title+'</b></a></br>'+line)
+                        RESULTS[title.rstrip().encode("utf-8")].append('<a href="/zohar/?'+which_lib+'='+title+'#'+str(line_number)+'"><b>'+title+'</b></a></br>'+line)
                     except:
                         RESULTS[title.rstrip().encode("utf-8")]=[]
-                        RESULTS[title.rstrip().encode("utf-8")].append('<a href="/zohar/?'+which_lib+'='+title+'"><b>'+title+'</b></a></br>'+line)
+                        RESULTS[title.rstrip().encode("utf-8")].append('<a href="/zohar/?'+which_lib+'='+title+'#'+str(line_number)+'"><b>'+title+'</b></a></br>'+line)
 
     return debug
 

@@ -119,12 +119,12 @@ def search(words, main_lib, filter):
     
     if len(key_words)==1:
         pattern = set_pattern(key_words[0], filter)
-    
+
     for doc in docs:
-        with io.open(doc, 'r', encoding='utf-8-sig') as doc:
+        with io.open(doc, 'r', encoding='utf-8-sig') as opened_doc:
             line_number = 0
             get_title = True
-            for line in doc:
+            for line in opened_doc:
                 line_number+=1
                 if get_title:
                     title = line.rstrip()
@@ -168,16 +168,23 @@ def set_pattern(key, filter):
 
 def list_of_resources(main_lib=True):
     res = []
-    
+
     if main_lib:
         docs_dir = os.path.join(os.path.dirname(__file__),'lib1')
     else:
         docs_dir = os.path.join(os.path.dirname(__file__),'lib2')
-    
+
+    # Windows
+    # for folder, subs, files in os.walk(unicode(docs_dir, 'utf-8')):
+    #     for filename in files:
+    #         if not filename.startswith('.'):
+    #             file_path = os.path.join(folder, filename)
+    #             res.append(file_path)
+
     for doc in os.listdir(docs_dir):
         if not doc.startswith('.'):
             res.append(os.path.join(docs_dir,doc))
-    
+
     return res
 
 def get_len_of_dict_content(dict):

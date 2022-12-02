@@ -12,6 +12,9 @@ from django.contrib import admin
 from zohar import views
 admin.autodiscover()
 
+# urlpatterns = [
+#     url(r'^$', views.index, name='index'),
+# ]
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
+    url(r'^$', views.index),
 ]

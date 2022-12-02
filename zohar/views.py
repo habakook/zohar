@@ -79,7 +79,8 @@ def get_book(docs,title):
                     break
                 else:
                     
-                    modified_title = '<h2 id="title">{0}</h2>'.format(title.encode('utf-8-sig'))
+#                     modified_title = '<h2 id="title">{0}</h2>'.format(title.encode('utf-8-sig'))
+                    modified_title = '<h2 id="title">{0}</h2>'.format(title)
                     book.append(modified_title)
                     
                     for l in doc:

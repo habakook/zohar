@@ -8,6 +8,6 @@ urlpatterns = [
 #     url(r'^zohar/', include('zohar.urls')),
 #     url(r'', include('zohar.urls'))
     url(r'^admin/', admin.site.urls),
-    url(r'^zohar/', zohar.urls),
-    url(r'', zohar.urls)
+    url(r'^zohar/', 'zohar.urls'),
+    url(r'', 'zohar.urls')
 ]

@@ -67,7 +67,8 @@ def get_book(docs,title):
     debug = []
     book=[]
     hebrew_pattern = re.compile(ALEPHBET, re.UNICODE)
-    footnote_pattern = re.compile(ur'\[\d{1,4}\]', re.UNICODE)
+#     footnote_pattern = re.compile(ur'\[\d{1,4}\]', re.UNICODE)
+    footnote_pattern = re.compile(r'\[\d{1,4}\]', re.UNICODE)
     title = unicodedata.normalize('NFC', title)
     
     for doc in docs:
@@ -161,7 +162,8 @@ def set_pattern(key, filter):
     elif filter == 'filter_3':
         pattern = re.compile(key, re.UNICODE)
     elif filter == 'filter_4':
-        pattern = re.compile(ur'\b{0}\b'.format(key), re.I|re.UNICODE)
+#         pattern = re.compile(ur'\b{0}\b'.format(key), re.I|re.UNICODE)
+        pattern = re.compile(r'\b{0}\b'.format(key), re.I|re.UNICODE)
     else:
         pattern = re.compile(key, re.I|re.UNICODE)
     return pattern

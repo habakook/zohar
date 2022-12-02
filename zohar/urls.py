@@ -16,5 +16,6 @@ admin.autodiscover()
 #     url(r'^$', views.index, name='index'),
 # ]
 urlpatterns = [
-    url(r'^$', views.index),
+#     path(r'^$', views.index),
+    re_path(r'^$', views.index),
 ]

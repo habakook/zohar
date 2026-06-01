@@ -6,7 +6,20 @@ import io
 import sys
 import unicodedata
 import collections
+import urllib.request
+import json
 from .models import Visit
+
+
+def get_country(ip):
+    try:
+        if ip in ('127.0.0.1', 'localhost'):
+            return ''
+        with urllib.request.urlopen(f'http://ip-api.com/json/{ip}?fields=country', timeout=2) as r:
+            data = json.loads(r.read())
+            return data.get('country', '')
+    except Exception:
+        return ''
 
 
 ALEPHBET = u'[אבגדהוזחטיכךלמםנןסעפףצץקרשתﭏ]'
@@ -33,7 +46,8 @@ def index(request):
         title_lib1 = title_lib1[1:]
     
     ip = request.META.get('HTTP_X_FORWARDED_FOR', request.META.get('REMOTE_ADDR', '')).split(',')[0].strip()
-    Visit.objects.create(ip=ip, query=value or '')
+    country = get_country(ip)
+    Visit.objects.create(ip=ip, query=value or '', country=country)
 
     if value != '':
         debug, found_verses = search(value, main_lib, filter)

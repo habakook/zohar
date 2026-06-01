@@ -4,6 +4,7 @@ from django.db import models
 class Visit(models.Model):
     ip = models.GenericIPAddressField()
     query = models.CharField(max_length=500, blank=True, default='')
+    country = models.CharField(max_length=100, blank=True, default='')
     timestamp = models.DateTimeField(auto_now_add=True)
 
     class Meta:

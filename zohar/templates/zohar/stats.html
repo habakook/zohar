@@ -17,13 +17,14 @@
   <h1>Recent visits (last 200)</h1>
   <table>
     <thead>
-      <tr><th>Time</th><th>IP</th><th>Search query</th></tr>
+      <tr><th>Time</th><th>IP</th><th>Country</th><th>Search query</th></tr>
     </thead>
     <tbody>
       {% for v in visits %}
       <tr>
         <td>{{ v.timestamp|date:"Y-m-d H:i" }}</td>
         <td>{{ v.ip }}</td>
+        <td>{% if v.country %}{{ v.country }}{% else %}<span class="empty">—</span>{% endif %}</td>
         <td>{% if v.query %}<b>{{ v.query }}</b>{% else %}<span class="empty">—</span>{% endif %}</td>
       </tr>
       {% empty %}

@@ -110,7 +110,7 @@ def search(words, main_lib, filter):
 
     for book in BOOKS:
 #         found_verses[book.decode("utf-8-sig").encode("utf-8")]=[]
-        found_verses[book.encode("utf-8")]=[]
+        found_verses[book]=[]
     
     docs = list_of_resources(main_lib)
     which_lib = 'title_lib1' if main_lib else 'title_lib2'
@@ -151,10 +151,10 @@ def search(words, main_lib, filter):
                         line = pattern.sub('<span class="highlightme">'+'\g<0>'+'</span>',line)
 
                     try:
-                        found_verses[title.encode("utf-8")].append('<a href="/zohar/?'+which_lib+'='+title+'#'+str(line_number)+'"><b>'+title+'</b></a></br>'+line)
+                        found_verses[title].append('<a href="/zohar/?'+which_lib+'='+title+'#'+str(line_number)+'"><b>'+title+'</b></a></br>'+line)
                     except:
                         found_verses[title.encode("utf-8")]=[]
-                        found_verses[title.encode("utf-8")].append('<a href="/zohar/?'+which_lib+'='+title+'#'+str(line_number)+'"><b>'+title+'</b></a></br>'+line)
+                        found_verses[title].append('<a href="/zohar/?'+which_lib+'='+title+'#'+str(line_number)+'"><b>'+title+'</b></a></br>'+line)
 
     return debug, found_verses
 

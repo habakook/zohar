@@ -22,7 +22,6 @@ SECRET_KEY = 'dme$roy^on0_qe-qxg*optx*8@4m3cbpcuxbt6vh%&)rr=x+d#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-TEMPLATE_DEBUG = True
 
 # TEMPLATE_DIRS = (
 #   '/home/habakook/zohar/zohar/templates/zohar/',
@@ -43,7 +42,7 @@ TEMPLATES = [
  },
 ]
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['habakook.pythonanywhere.com']
 
 
 # Application definition
@@ -58,14 +57,14 @@ INSTALLED_APPS = (
     'zohar',
 )
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-)
+]
 
 ROOT_URLCONF = 'kab.urls'
 

@@ -6,6 +6,7 @@ import io
 import sys
 import unicodedata
 import collections
+from .models import Visit
 
 
 ALEPHBET = u'[אבגדהוזחטיכךלמםנןסעפףצץקרשתﭏ]'
@@ -31,6 +32,9 @@ def index(request):
     if title_lib1.startswith(u'\ufeff'):
         title_lib1 = title_lib1[1:]
     
+    ip = request.META.get('HTTP_X_FORWARDED_FOR', request.META.get('REMOTE_ADDR', '')).split(',')[0].strip()
+    Visit.objects.create(ip=ip, query=value or '')
+
     if value != '':
         debug, found_verses = search(value, main_lib, filter)
         #count = len(found_verses)
@@ -199,6 +203,11 @@ def get_len_of_dict_content(dict):
     except:
         pass
     return length
+
+def stats(request):
+    visits = Visit.objects.all()[:200]
+    return render(request, 'zohar/stats.html', {'visits': visits})
+
 
 MASTER_MAP = [('בְּרֵאשִׁית',	'Берешит', ['Зоhар Брейшит I','Зоhар Брейшит II'],['Зоhар Брейшит']),
               ('נֹחַ	', 'Ноах', ['Зоhар Ноах'],['Зоhар Ноах']),

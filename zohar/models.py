@@ -1,3 +1,13 @@
 from django.db import models
 
-# Create your models here.
+
+class Visit(models.Model):
+    ip = models.GenericIPAddressField()
+    query = models.CharField(max_length=500, blank=True, default='')
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-timestamp']
+
+    def __str__(self):
+        return f'{self.ip} — {self.timestamp:%Y-%m-%d %H:%M}'

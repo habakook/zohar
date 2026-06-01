@@ -47,7 +47,8 @@ def index(request):
     
     ip = request.META.get('HTTP_X_FORWARDED_FOR', request.META.get('REMOTE_ADDR', '')).split(',')[0].strip()
     country = get_country(ip)
-    Visit.objects.create(ip=ip, query=value or '', country=country)
+    viewed_book = title_lib1 or title_lib2 or ''
+    Visit.objects.create(ip=ip, query=value or '', book=viewed_book, country=country)
 
     if value != '':
         debug, found_verses = search(value, main_lib, filter)

@@ -168,11 +168,7 @@ def search(words, main_lib, filter):
                         pattern = set_pattern(word, filter)
                         line = pattern.sub('<span class="highlightme">'+'\g<0>'+'</span>',line)
 
-                    try:
-                        found_verses[title].append('<a href="/zohar/?'+which_lib+'='+title+'#'+str(line_number)+'"><b>'+title+'</b></a></br>'+line)
-                    except:
-                        found_verses[title.encode("utf-8")]=[]
-                        found_verses[title].append('<a href="/zohar/?'+which_lib+'='+title+'#'+str(line_number)+'"><b>'+title+'</b></a></br>'+line)
+                    found_verses.setdefault(title, []).append('<a href="/zohar/?'+which_lib+'='+title+'#'+str(line_number)+'"><b>'+title+'</b></a></br>'+line)
 
     return debug, found_verses
 

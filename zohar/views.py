@@ -168,6 +168,9 @@ def search(words, main_lib, filter):
                         pattern = set_pattern(word, filter)
                         line = pattern.sub('<span class="highlightme">'+'\g<0>'+'</span>',line)
 
+                    hebrew_pattern = re.compile(ALEPHBET, re.UNICODE)
+                    line = hebrew_pattern.sub('<span xml:lang="he" lang="he" class="ezra">'+'\g<0>'+'</span>', line)
+
                     found_verses.setdefault(title, []).append('<a href="/zohar/?'+which_lib+'='+title+'#'+str(line_number)+'"><b>'+title+'</b></a></br>'+line)
 
     return debug, found_verses
